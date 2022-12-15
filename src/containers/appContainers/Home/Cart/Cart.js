@@ -7,7 +7,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-import { DeleteitemFromcart } from '../../../store/Action';
+import { DeleteitemFromcart } from '../../../../store/Action';
 import Text from '@components/common/Text';
 import R from '@components/utils/R';
 import { useSelector } from 'react-redux';
@@ -15,26 +15,48 @@ import { useDispatch } from 'react-redux';
 import Button from '@components/common/Button';
 import Icon from '@components/common/Icon';
 import { ScrollView } from 'react-native-gesture-handler';
-import { showNotification } from './Notification_android';
+import { showNotification } from '../../../../components/common/Notification_android';
 
 function Cart() {
   const dispatch = useDispatch();
 
   const items = useSelector(state => state.Reducer);
-
   const removeitems = index => {
     dispatch(DeleteitemFromcart(index));
   };
 
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [cartList, setCartList] = useState([]);
+
   useEffect(() => {
     totallPrice();
-  });
+  }, [cartList]);
 
-  const [totalPrice, setTotalPrice] = useState(0);
+  useEffect(() => {
+    setCartList(items);
+  }, [items]);
+
+  const Increment = item => {
+    const { id } = item;
+    let result = cartList.find(item => item.id === id);
+    result.count = result.count + 1;
+    console.log(result);
+    setCartList([...cartList]);
+  };
+
+  const Delete = item => {
+    if (item.count > 1) {
+      let { id } = item;
+      let result = cartList.find(item => item.id === id);
+      result.count = result.count - 1;
+      console.log(result);
+      setCartList([...cartList]);
+    }
+  };
 
   const totallPrice = () => {
     let newArr = [];
-    for (var i = 0; i < items.length; i++) {
+    for (var i = 0; i < cartList.length; i++) {
       let result = items[i].count * items[i].price;
       newArr.push(result);
       let subresult = newArr.reduce(
@@ -47,14 +69,8 @@ function Cart() {
   return (
     <SafeAreaView>
       <ScrollView>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            paddingTop: 10,
-            paddingHorizontal: 7,
-          }}>
-          <View style={{}}>
+        <View style={styles.headertext}>
+          <View>
             <Text
               variant={'body1'}
               font={'WorkSansBlackitalic'}
@@ -69,7 +85,7 @@ function Cart() {
           </View>
         </View>
         <FlatList
-          data={items}
+          data={cartList}
           renderItem={({ item, index }) => {
             return (
               <View>
@@ -84,7 +100,6 @@ function Cart() {
                       align={'left'}
                       style={{
                         width: '100%',
-                        marginLeft: 14,
                       }}
                       transform={'none'}>
                       ALL GOOD QUALITY
@@ -98,29 +113,15 @@ function Cart() {
                       color={R.color.black}
                       align={'left'}
                       style={{
-                        marginLeft: 14,
+                        width: '100%',
                       }}
                       transform={'none'}>
                       Rs: {item.price}
                     </Text>
                   </View>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'center',
-                      margin: 14,
-                    }}>
-                    <View
-                      style={{
-                        backgroundColor: 'white',
-                        flexDirection: 'row',
-                        borderRadius: 16,
-                        paddingVertical: 3,
-                        paddingHorizontal: 3,
-                      }}>
-                      <TouchableOpacity
-                        //onPress={Add}
-                        style={{ marginRight: 10 }}>
+                  <View style={styles.wholeButtoncounter}>
+                    <View style={styles.Buttoncounter}>
+                      <TouchableOpacity onPress={() => Increment(item)}>
                         <Icon
                           type={'Entypo'}
                           name={'plus'}
@@ -134,13 +135,15 @@ function Cart() {
                         gutterTop={2}
                         color={R.color.black}
                         align={'left'}
-                        style={{}}
+                        style={{ margin: 10 }}
                         transform={'none'}>
                         {item.count}
                       </Text>
                       <TouchableOpacity
-                        //onPress={delete}
-                        style={{ marginLeft: 10 }}>
+                        onPress={() => Delete(item)}
+                        style={{
+                          gutterTop: R.unit.scale(10),
+                        }}>
                         <Icon
                           type={'Entypo'}
                           name={'minus'}
@@ -154,12 +157,7 @@ function Cart() {
                         onPress={() => {
                           removeitems(index);
                         }}
-                        style={{
-                          marginLeft: 14,
-                          marginTop: 10,
-                          flexDirection: 'row',
-                          justifyContent: 'flex-end',
-                        }}>
+                        style={styles.cancelButton}>
                         <Icon
                           type={'FontAwesome'}
                           name={'times-circle-o'}
@@ -173,20 +171,13 @@ function Cart() {
               </View>
             );
           }}></FlatList>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            paddingHorizontal: 18,
-            paddingTop: 10,
-          }}>
+        <View style={styles.contentTitle}>
           <View>
             <Text
               variant={'body3'}
               font={'WorkSansBlackitalic'}
               color={R.color.logintextcolor}
               align={'left'}
-              style={{}}
               transform={'none'}>
               Delivery
             </Text>
@@ -197,26 +188,18 @@ function Cart() {
               font={'WorkSansBlackitalic'}
               color={R.color.logintextcolor}
               align={'left'}
-              style={{}}
               transform={'none'}>
               Free
             </Text>
           </View>
         </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            paddingHorizontal: 18,
-            paddingTop: 10,
-          }}>
+        <View style={styles.totalpriceTitle}>
           <View>
             <Text
               variant={'body2'}
               font={'WorkSansBlackitalic'}
               color={R.color.black}
               align={'left'}
-              style={{}}
               transform={'none'}>
               TotalPrice
             </Text>
@@ -227,7 +210,6 @@ function Cart() {
               font={'WorkSansBlackitalic'}
               color={R.color.black}
               align={'left'}
-              style={{}}
               transform={'none'}>
               {totalPrice}
             </Text>
@@ -251,16 +233,52 @@ function Cart() {
 }
 const styles = StyleSheet.create({
   images1: {
-    width: 65,
-    height: 50,
-    borderRadius: 40,
+    width: R.unit.scale(65),
+    height: R.unit.scale(50),
+    borderRadius: R.unit.scale(40),
+  },
+  headertext: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gutterTop: R.unit.scale(10),
+    paddingHorizontal: R.unit.scale(7),
   },
   cartt: {
-    paddingHorizontal: 20,
+    paddingHorizontal: R.unit.scale(20),
     justifyContent: 'space-between',
-    paddingVertical: 16,
+    paddingVertical: R.unit.scale(16),
     flexDirection: 'row',
-    borderRadius: 12,
+    borderRadius: R.unit.scale(12),
+  },
+  Buttoncounter: {
+    backgroundColor: R.color.white,
+    flexDirection: 'row',
+    borderRadius: R.unit.scale(16),
+    paddingVertical: R.unit.scale(3),
+    paddingHorizontal: R.unit.scale(3),
+  },
+  wholeButtoncounter: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    margin: R.unit.scale(14),
+  },
+  cancelButton: {
+    marginLeft: R.unit.scale(14),
+    marginTop: R.unit.scale(10),
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  contentTitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: R.unit.scale(18),
+    paddingTop: R.unit.scale(10),
+  },
+  totalpriceTitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: R.unit.scale(18),
+    paddingTop: R.unit.scale(10),
   },
 });
 export default Cart;

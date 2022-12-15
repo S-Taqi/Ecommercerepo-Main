@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { addItemsToCart } from '../../../store/Action';
+import { addItemsToCart } from '../../../../store/Action';
 import Icon from '@components/common/Icon';
 import Text from '@components/common/Text';
 import R from '@components/utils/R';
@@ -10,7 +10,7 @@ import Button from '@components/common/Button';
 function Detail(props) {
   const data = props.route.params.data;
   const { navigation } = props;
-  const { price, message, name, count, uri } = data;
+  const { price, name, count, uri } = data;
   const [counter, setCounter] = useState(count);
   const [totalPrice, setTotalPrice] = useState(price);
 
@@ -22,12 +22,6 @@ function Detail(props) {
   };
 
   const Delete = () => {
-    if (counter <= 0) {
-      setCounter(0);
-      console.log('aaaa');
-    } else {
-      console.log('failed');
-    }
     setCounter(counter - 1);
     let result = parseInt(data.price) * counter - data.price;
     setTotalPrice(result);
@@ -46,8 +40,7 @@ function Detail(props) {
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('Home');
-          }}
-          style={{ marginLeft: 10 }}>
+          }}>
           <Icon
             type={'FontAwesome5'}
             name={'angle-left'}
@@ -55,17 +48,11 @@ function Detail(props) {
             color={'black'}
           />
         </TouchableOpacity>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            flexDirection: 'row',
-          }}>
+        <View style={styles.hedertitletext}>
           <Text
             variant={'h0'}
             font={'WorkSansextraBold'}
             gutterTop={10}
-            //gutterBottom={R.unit.scale(30)}
             color={R.color.black}
             align={'center'}
             style={{ width: '100%' }}
@@ -73,30 +60,26 @@ function Detail(props) {
             {name}
           </Text>
         </View>
-        <View style={{ marginRight: 10 }}>
+        <View style={styles.hearticon}>
           <Icon type={'Entypo'} name={'heart'} size={25} color={'#E42021'} />
         </View>
       </View>
-      <View style={{ flex: 0.4, backgroundColor: 'lightgray' }}>
+      <View style={styles.imagebackground}>
         <Image style={styles.images1} source={uri} />
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-          }}>
-          <View
-            style={{
-              backgroundColor: 'white',
-              flexDirection: 'row',
-              borderRadius: 16,
-              paddingVertical: 8,
-              paddingHorizontal: 14,
-            }}>
-            <TouchableOpacity onPress={Add} style={{ marginRight: 10 }}>
+        <View style={styles.buttonStyle}>
+          <View style={styles.wholeButtoncounter}>
+            <TouchableOpacity onPress={Add} style={styles.incrementcounter}>
               <Icon type={'Entypo'} name={'plus'} size={30} color={'#E42021'} />
             </TouchableOpacity>
-            <Text style={{ marginTop: 6, color: 'black' }}>{counter}</Text>
-            <TouchableOpacity onPress={Delete} style={{ marginLeft: 10 }}>
+            <Text
+              variant={'body3'}
+              gutterTop={4}
+              font={'WorkSansextraBold'}
+              color={R.color.black}
+              transform={'none'}>
+              {counter}
+            </Text>
+            <TouchableOpacity onPress={Delete} style={styles.deletecounter}>
               <Icon
                 type={'Entypo'}
                 name={'minus'}
@@ -106,19 +89,12 @@ function Detail(props) {
             </TouchableOpacity>
           </View>
         </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            paddingHorizontal: 18,
-            paddingTop: 10,
-          }}>
+        <View style={styles.contentBodytitle}>
           <View>
             <Text
               variant={'h4'}
               font={'WorkSansextraBold'}
               gutterTop={6}
-              //gutterBottom={R.unit.scale(30)}
               color={R.color.black}
               align={'center'}
               style={{ width: '100%' }}
@@ -131,7 +107,6 @@ function Detail(props) {
               variant={'body1'}
               font={'WorkSansextraBold'}
               gutterTop={14}
-              //gutterBottom={R.unit.scale(30)}
               color={R.color.black}
               align={'center'}
               style={{ width: '100%' }}
@@ -144,22 +119,15 @@ function Detail(props) {
           variant={'body2'}
           font={'WorkSansextraRegular'}
           gutterTop={4}
-          //gutterBottom={R.unit.scale(30)}
           color={R.color.black}
           align={'left'}
-          style={{ width: '100%', padding: 15 }}
+          style={{ width: '100%', padding: R.unit.scale(15) }}
           transform={'none'}>
           Soft and comforting leather,with original quality Soft and comforting
           leather,with original quality Soft and comforting leather,with
           original quality
         </Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            paddingHorizontal: 18,
-            //paddingTop: 5,
-          }}>
+        <View style={styles.discription}>
           <View>
             <Icon
               type={'Entypo'}
@@ -240,11 +208,11 @@ export default Detail;
 
 const styles = StyleSheet.create({
   headerContainer: {
-    paddingTop: 15,
-    width: '100%',
+    paddingTop: R.unit.scale(2),
+    width: R.unit.scale(380),
     alignItems: 'center',
     flexDirection: 'row',
-    backgroundColor: 'lightgray',
+    backgroundColor: R.color.lightGray,
   },
   container: {
     alignItems: 'flex-start',
@@ -252,12 +220,43 @@ const styles = StyleSheet.create({
   },
 
   images1: {
-    marginTop: 30,
-    width: 300,
-    height: 300,
-    borderRadius: 10,
+    gutterBottom: R.unit.scale(20),
+    width: R.unit.scale(300),
+    height: R.unit.scale(300),
+    borderRadius: R.unit.scale(10),
     justifyContent: 'center',
-    Color: '#D0F1DD',
+    Color: R.color.lightGray,
     alignSelf: 'center',
+  },
+  wholeButtoncounter: {
+    backgroundColor: R.color.white,
+    flexDirection: 'row',
+    borderRadius: R.unit.scale(15),
+    paddingVertical: R.unit.scale(8),
+    paddingHorizontal: R.unit.scale(14),
+  },
+  contentBodytitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: R.unit.scale(18),
+    paddingTop: R.unit.scale(18),
+  },
+  discription: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    paddingHorizontal: R.unit.scale(18),
+  },
+  hearticon: { marginRight: R.unit.scale(10) },
+  deletecounter: { marginLeft: R.unit.scale(10) },
+  incrementcounter: { marginRight: R.unit.scale(10) },
+  hedertitletext: {
+    flex: 1,
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  imagebackground: { flex: 0.4, backgroundColor: R.color.lightGray },
+  buttonStyle: {
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
 });

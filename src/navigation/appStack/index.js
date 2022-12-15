@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
-import { SafeAreaView, StyleSheet, Image, View, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '@containers/authContainers/loginScreen';
-import Home from '@containers/appContainers/Home';
-import Detail from '@containers/appContainers/Home/Detail';
-import Notification from '@containers/appContainers/Home/Notification';
-import Profile from '@containers/appContainers/Home/Profile';
+import Home from '@containers/appContainers/Home/home';
+import Detail from '@containers/appContainers/Home/Detail/Detail';
+import Notification from '@containers/appContainers/Home/Notification/Notification';
+import Profile from '@containers/appContainers/Home/Profile/Profile';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import R from '@components/utils/R';
-import Cart from '@containers/appContainers/Home/Cart';
+import Cart from '@containers/appContainers/Home/Cart/Cart';
 import { useSelector } from 'react-redux';
 import Icon from '@components/common/Icon';
 
@@ -19,8 +19,6 @@ const AuthStack = () => {
 
   function MyTabs() {
     const items = useSelector(state => state.Reducer);
-    console.log('annnn', items);
-    console.log(items, 'asasasas');
     return (
       <Tab.Navigator
         screenOptions={{
@@ -36,10 +34,7 @@ const AuthStack = () => {
           style: {
             backgroundColor: R.color.white,
             height: 58,
-            //borderTopRightRadius: 12,
-            //borderTopLeftRadius: 12,
             borderRadius: 20,
-            //backgroundColor: '#F2F2F2',
             paddingVertical: 10,
             marginRight: 10,
             marginLeft: 10,

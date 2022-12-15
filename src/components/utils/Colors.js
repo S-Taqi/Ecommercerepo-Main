@@ -14,6 +14,7 @@ const color = {
   gray5: '#B5B5B5',
   gray6: '#F6F6F6',
   blueShade1: '#EDF0F7',
+  lightgray: 'lightgray',
   //loginTextcolor
   logintextcolor: '#E42021',
   textcolor: '#D0F1DD',
@@ -51,6 +52,7 @@ const color = {
   lightGray: '#BEBEBE',
   inputTitle: '#868686',
 
-  //icon
+  //themming
+  //backgroundColor: theme == 'DARK' ? '#A45A52' : 'white',
 };
 export default color;

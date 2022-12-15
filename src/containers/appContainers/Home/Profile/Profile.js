@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { addItemsToCart } from '../../../store/Action';
 import R from '@components/utils/R';
 import Text from '@components/common/Text';
 import Icon from '@components/common/Icon';
+import color from '@components/utils/Colors';
 
 function Profile(props) {
-  //const data = props.route.params.data;
   const { navigation } = props;
 
   return (
@@ -30,7 +28,7 @@ function Profile(props) {
           style={styles.images1}
           source={require('@assets/Images/profilePic.jpg')}
         />
-        <View style={{ marginTop: 10 }}>
+        <View>
           <Text
             variant={'h3'}
             font={'Poppins-Black'}
@@ -38,22 +36,13 @@ function Profile(props) {
             gutterBottom={R.unit.scale(40)}
             color={R.color.black}
             align={'center'}
-            style={{ width: '100%', color: 'black' }}
+            style={{ width: '100%' }}
             transform={'none'}>
             HELLO USER
           </Text>
         </View>
-        <View style={{ marginTop: 10 }}></View>
       </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-          backgroundColor: '#B7B7B7',
-          borderRadius: 20,
-          margin: 15,
-          padding: 6,
-        }}>
+      <View style={styles.buttons}>
         <Icon type={'Entypo'} name={'bell'} size={25} color={'#E42021'} />
         <View>
           <Text
@@ -62,7 +51,7 @@ function Profile(props) {
             gutterTop={3}
             color={R.color.black}
             align={'center'}
-            style={{ width: '100%', color: 'black' }}
+            style={{ width: '100%' }}
             transform={'none'}>
             Notification
           </Text>
@@ -70,20 +59,11 @@ function Profile(props) {
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('Notification');
-          }}
-          style={{ marginLeft: 60 }}>
+          }}>
           <Icon type={'AntDesign'} name={'right'} size={25} color={'#E42021'} />
         </TouchableOpacity>
       </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-          backgroundColor: '#B7B7B7',
-          borderRadius: 20,
-          margin: 12,
-          padding: 6,
-        }}>
+      <View style={styles.shoppingCartview}>
         <Icon
           type={'Entypo'}
           name={'shopping-cart'}
@@ -95,7 +75,6 @@ function Profile(props) {
             variant={'body1'}
             font={'Poppins-Black'}
             gutterTop={3}
-            //gutterBottom={R.unit.scale(40)}
             color={R.color.black}
             align={'center'}
             style={{ width: '100%', color: 'black' }}
@@ -107,29 +86,20 @@ function Profile(props) {
           onPress={() => {
             navigation.navigate('Cart');
           }}
-          style={{ marginLeft: 110 }}>
+          style={styles.cartmargin}>
           <Icon type={'AntDesign'} name={'right'} size={25} color={'#E42021'} />
         </TouchableOpacity>
       </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-          backgroundColor: '#B7B7B7',
-          borderRadius: 20,
-          margin: 12,
-          padding: 6,
-        }}>
+      <View style={styles.logoutview}>
         <Icon type={'Feather'} name={'log-out'} size={25} color={'#E42021'} />
         <View>
           <Text
             variant={'body1'}
             font={'Poppins-Black'}
             gutterTop={3}
-            //gutterBottom={R.unit.scale(40)}
             color={R.color.black}
             align={'center'}
-            style={{ width: '100%', color: 'black' }}
+            style={{ width: '100%' }}
             transform={'none'}>
             Logout
           </Text>
@@ -138,7 +108,7 @@ function Profile(props) {
           onPress={() => {
             navigation.navigate('Login');
           }}
-          style={{ marginLeft: 90 }}>
+          style={styles.arrow}>
           <Icon type={'AntDesign'} name={'right'} size={25} color={'#E42021'} />
         </TouchableOpacity>
       </View>
@@ -149,25 +119,48 @@ export default Profile;
 
 const styles = StyleSheet.create({
   headerContainer: {
-    paddingTop: 15,
-    width: '100%',
+    paddingTop: R.unit.scale(15),
+    width: R.unit.scale(380),
     alignItems: 'center',
-    //flexDirection: 'row',
-    backgroundColor: '#B7B7B7',
-    borderBottomRightRadius: 35,
-    borderBottomLeftRadius: 35,
+    backgroundColor: R.color.gray,
+    borderBottomRightRadius: R.unit.scale(35),
+    borderBottomLeftRadius: R.unit.scale(35),
   },
-  reviewtitle: {
-    color: '#09B44D',
-    fontFamily: 'Poppins-BoldItalic',
-  },
+
   images1: {
-    marginTop: 30,
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    marginTop: R.unit.scale(30),
+    width: R.unit.scale(40),
+    height: R.unit.scale(40),
+    borderRadius: R.unit.scale(30),
     justifyContent: 'center',
-    Color: '#D0F1DD',
     alignSelf: 'center',
+  },
+  buttons: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    backgroundColor: R.color.gray,
+    borderRadius: R.unit.scale(30),
+    margin: R.unit.scale(20),
+    padding: R.unit.scale(6),
+  },
+  arrow: { marginLeft: R.unit.scale(110) },
+  logoutview: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    backgroundColor: R.color.gray,
+    borderRadius: R.unit.scale(20),
+    margin: R.unit.scale(12),
+    padding: R.unit.scale(6),
+  },
+  shoppingCartview: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    backgroundColor: R.color.gray,
+    borderRadius: R.unit.scale(20),
+    margin: R.unit.scale(12),
+    padding: R.unit.scale(6),
+  },
+  cartmargin: {
+    marginLeft: R.unit.scale(110),
   },
 });
