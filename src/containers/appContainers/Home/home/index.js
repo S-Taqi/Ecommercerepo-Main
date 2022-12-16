@@ -1,18 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   View,
   TouchableOpacity,
   FlatList,
   Image,
+  TextInput
 } from 'react-native';
 import Icon from '@components/common/Icon';
 import Text from '@components/common/Text';
 import R from '@components/utils/R';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-function Home({ navigation }) {
-  const [data, setData] = useState([
+function Home(props) {
+  const { navigation } = props;
+  const [click, setClick] = useState(false);
+  const [searchitems, setSearchitems] = useState('');
+
+  const toggleLoading = () => {
+    setClick(!click);
+  };
+
+  const data = [
     {
       id: '1',
       name: 'Jackets',
@@ -103,14 +112,14 @@ function Home({ navigation }) {
       isSeen: true,
       count: 9,
     },
-  ]);
+  ];
 
   const renderItem = ({ item }) => {
     return (
       <TouchableOpacity>
         <View style={styles.containerHeader}>
-          <View style={styles.innerContainerheader}>
-            <Image source={item.uri} style={styles.headerimage} />
+          <View style={styles.innerContainerHeader}>
+            <Image source={item.uri} style={styles.headerImage} />
             <Text
               variant={'body2'}
               font={'WorkSansBlackitalic'}
@@ -125,53 +134,108 @@ function Home({ navigation }) {
   };
 
   const renderList = ({ item }) => {
-    return (
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Detail', { data: item })}
-        style={styles.containerBody}>
-        <Image
-          source={item.uri}
-          style={styles.bodyimage}
-          resizeMode={'contain'}
-        />
-        <View style={styles.innercontainertext}>
-          <Text
-            variant={'body2'}
-            font={'WorkSansBlackitalic'}
-            color={R.color.black}
-            transform={'none'}>
-            {item.name}
-          </Text>
-          <Text
-            variant={'body4'}
-            font={'WorkSansBlackitalic'}
-            color={R.color.black}
-            transform={'none'}>
-            All good quality cloths,with comfort and geniune quality leather
-          </Text>
-          <View style={styles.pricingTag}>
+    if (searchitems === '') {
+      return (
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Detail', { data: item })}
+          style={styles.containerBody}>
+          <Image
+            source={item.uri}
+            style={styles.bodyImage}
+            resizeMode={'contain'}
+          />
+          <View style={styles.innerContainerText}>
             <Text
-              variant={'body5'}
+              variant={'body2'}
               font={'WorkSansBlackitalic'}
-              color={R.color.white}
-              style={{ width: '100%' }}
-              align={'center'}
+              color={R.color.black}
               transform={'none'}>
-              {item.price}
+              {item.name}
             </Text>
+            <Text
+              variant={'body4'}
+              font={'PoppinsMedium'}
+              color={R.color.black}
+              transform={'none'}>
+              All good quality cloths,with comfort and geniune quality leather
+            </Text>
+            <View style={styles.pricingTag}>
+              <Text
+                variant={'body5'}
+                font={'WorkSansmedium'}
+                color={R.color.white}
+                style={{ width: '100%' }}
+                align={'center'}
+                transform={'none'}>
+                {item.price} RS
+              </Text>
+            </View>
+            <View style={styles.heartIconStyle}>
+              <Icon
+                type={'Entypo'}
+                name={'heart'}
+                size={25}
+                color={'#E42021'}
+              />
+            </View>
           </View>
-          <View style={styles.heartIconstyle}>
-            <Icon type={'Entypo'} name={'heart'} size={25} color={'#E42021'} />
+        </TouchableOpacity>
+      );
+    }
+    if (item.name.toLowerCase().includes(searchitems.toLowerCase())) {
+      return (
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Detail', { data: item })}
+          style={styles.containerBody}>
+          <Image
+            source={item.uri}
+            style={styles.bodyImage}
+            resizeMode={'contain'}
+          />
+          <View style={styles.innerContainerText}>
+            <Text
+              variant={'body2'}
+              font={'WorkSansBlackitalic'}
+              color={R.color.black}
+              transform={'none'}>
+              {item.name}
+            </Text>
+            <Text
+              variant={'body4'}
+              font={'PoppinsMedium'}
+              color={R.color.black}
+              transform={'none'}>
+              All good quality cloths,with comfort and geniune quality leather
+            </Text>
+            <View style={styles.pricingTag}>
+              <Text
+                variant={'body5'}
+                font={'WorkSansmedium'}
+                color={R.color.white}
+                style={{ width: '100%' }}
+                align={'center'}
+                transform={'none'}>
+                {item.price} RS
+              </Text>
+            </View>
+            <View style={styles.heartIconStyle}>
+              <Icon
+                type={'Entypo'}
+                name={'heart'}
+                size={25}
+                color={'#E42021'}
+              />
+            </View>
           </View>
-        </View>
-      </TouchableOpacity>
-    );
+        </TouchableOpacity>
+      );
+    }
   };
 
   return (
-    <View>
+    <SafeAreaView>
       <View>
-        <View style={styles.headericon}>
+        <View style={styles.headerIcon}>
           <Icon type={'FontAwesome'} name={'shirtsinbulk'} size={40} />
           <View>
             <Text
@@ -184,10 +248,25 @@ function Home({ navigation }) {
               Good quality cloths,
             </Text>
           </View>
-          <Icon type={'Feather'} name={'search'} size={30} />
+          <TouchableOpacity onPress={toggleLoading}>
+            <Icon type={'Feather'} name={'search'} size={30} />
+          </TouchableOpacity>
         </View>
       </View>
 
+      <View>
+        {click && (
+          <>
+            <TextInput
+              style={styles.input}
+              onChangeText={text => setSearchitems(text)}
+              value={searchitems}
+              placeholder="SearchItems"
+              placeholderTextColor="gray"
+            />
+          </>
+        )}
+      </View>
       <View>
         <FlatList
           data={data}
@@ -201,7 +280,7 @@ function Home({ navigation }) {
         renderItem={renderList}
         showsVerticalScrollIndicator={false}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 export default Home;
@@ -214,8 +293,19 @@ const styles = StyleSheet.create({
     margin: R.unit.scale(8),
     borderRadius: R.unit.scale(20),
     backgroundColor: R.color.white,
-    elevation: R.unit.scale(6),
+    //elevation: R.unit.scale(1),
     opacity: R.unit.scale(1.6),
+  },
+  input: {
+    paddingVertical: R.unit.scale(10),
+    paddingHorizontal: R.unit.scale(25),
+    marginTop: R.unit.scale(8),
+    marginLeft: R.unit.scale(10),
+    marginBottom: R.unit.scale(20),
+    width: R.unit.scale(350),
+    backgroundColor: R.color.white,
+    elevation: R.unit.scale(6),
+    borderRadius: R.unit.scale(16),
   },
 
   containerBody: {
@@ -230,7 +320,7 @@ const styles = StyleSheet.create({
     elevation: R.unit.scale(6),
     shadowRadius: R.unit.scale(19),
   },
-  innerContainerheader: {
+  innerContainerHeader: {
     flexDirection: 'row',
     padding: R.unit.scale(4),
     margin: R.unit.scale(12),
@@ -239,25 +329,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  headerimage: {
+  headerImage: {
     width: R.unit.scale(30),
     height: R.unit.scale(30),
     borderRadius: R.unit.scale(30),
     justifyContent: 'center',
   },
-  bodyimage: {
+  bodyImage: {
     width: R.unit.scale(90),
     height: R.unit.scale(90),
     borderRadius: R.unit.scale(40),
   },
 
-  headericon: {
+  headerIcon: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
     marginTop: R.unit.scale(20),
-    marginLeft: R.unit.scale(10),
+    //marginLeft: R.unit.scale(10),
   },
-  innercontainertext: { flex: 1, marginLeft: R.unit.scale(14) },
+  innerContainerText: { flex: 1, marginLeft: R.unit.scale(14) },
   pricingTag: {
     marginTop: R.unit.scale(10),
     height: R.unit.scale(20),
@@ -267,5 +357,5 @@ const styles = StyleSheet.create({
     borderRadius: R.unit.scale(10),
     backgroundColor: R.color.red,
   },
-  heartIconstyle: { flexDirection: 'row', marginLeft: R.unit.scale(170) },
+  heartIconStyle: { flexDirection: 'row', marginLeft: R.unit.scale(170) },
 });

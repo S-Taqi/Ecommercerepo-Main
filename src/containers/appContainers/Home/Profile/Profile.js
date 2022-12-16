@@ -77,7 +77,7 @@ function Profile(props) {
             gutterTop={3}
             color={R.color.black}
             align={'center'}
-            style={{ width: '100%', color: 'black' }}
+            style={{ width: '100%' }}
             transform={'none'}>
             Cart
           </Text>
@@ -120,7 +120,7 @@ export default Profile;
 const styles = StyleSheet.create({
   headerContainer: {
     paddingTop: R.unit.scale(15),
-    width: R.unit.scale(380),
+    width: R.unit.width(1),
     alignItems: 'center',
     backgroundColor: R.color.gray,
     borderBottomRightRadius: R.unit.scale(35),

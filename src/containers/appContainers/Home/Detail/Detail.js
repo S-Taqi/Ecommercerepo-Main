@@ -8,7 +8,7 @@ import R from '@components/utils/R';
 import Button from '@components/common/Button';
 
 function Detail(props) {
-  const data = props.route.params.data;
+  const { data } = props.route.params;
   const { navigation } = props;
   const { price, name, count, uri } = data;
   const [counter, setCounter] = useState(count);
@@ -48,7 +48,7 @@ function Detail(props) {
             color={'black'}
           />
         </TouchableOpacity>
-        <View style={styles.hedertitletext}>
+        <View style={styles.hederTitleText}>
           <Text
             variant={'h0'}
             font={'WorkSansextraBold'}
@@ -60,15 +60,15 @@ function Detail(props) {
             {name}
           </Text>
         </View>
-        <View style={styles.hearticon}>
+        <View style={styles.heartIcon}>
           <Icon type={'Entypo'} name={'heart'} size={25} color={'#E42021'} />
         </View>
       </View>
-      <View style={styles.imagebackground}>
-        <Image style={styles.images1} source={uri} />
+      <View style={styles.imageBackGround}>
+        <Image style={styles.images} source={uri} />
         <View style={styles.buttonStyle}>
-          <View style={styles.wholeButtoncounter}>
-            <TouchableOpacity onPress={Add} style={styles.incrementcounter}>
+          <View style={styles.wholeButtonCounter}>
+            <TouchableOpacity onPress={Add} style={styles.incrementCounter}>
               <Icon type={'Entypo'} name={'plus'} size={30} color={'#E42021'} />
             </TouchableOpacity>
             <Text
@@ -79,7 +79,7 @@ function Detail(props) {
               transform={'none'}>
               {counter}
             </Text>
-            <TouchableOpacity onPress={Delete} style={styles.deletecounter}>
+            <TouchableOpacity onPress={Delete} style={styles.deleteCounter}>
               <Icon
                 type={'Entypo'}
                 name={'minus'}
@@ -90,30 +90,26 @@ function Detail(props) {
           </View>
         </View>
         <View style={styles.contentBodytitle}>
-          <View>
-            <Text
-              variant={'h4'}
-              font={'WorkSansextraBold'}
-              gutterTop={6}
-              color={R.color.black}
-              align={'center'}
-              style={{ width: '100%' }}
-              transform={'none'}>
-              Furious {name}
-            </Text>
-          </View>
-          <View>
-            <Text
-              variant={'body1'}
-              font={'WorkSansextraBold'}
-              gutterTop={14}
-              color={R.color.black}
-              align={'center'}
-              style={{ width: '100%' }}
-              transform={'none'}>
-              {totalPrice} Rs
-            </Text>
-          </View>
+          <Text
+            variant={'h4'}
+            font={'WorkSansextraBold'}
+            gutterTop={6}
+            color={R.color.black}
+            align={'center'}
+            style={{ width: '100%' }}
+            transform={'none'}>
+            Furious {name}
+          </Text>
+          <Text
+            variant={'body1'}
+            font={'WorkSansextraBold'}
+            gutterTop={14}
+            color={R.color.black}
+            align={'center'}
+            style={{ width: '100%' }}
+            transform={'none'}>
+            {totalPrice} Rs
+          </Text>
         </View>
         <Text
           variant={'body2'}
@@ -209,7 +205,6 @@ export default Detail;
 const styles = StyleSheet.create({
   headerContainer: {
     paddingTop: R.unit.scale(2),
-    width: R.unit.scale(380),
     alignItems: 'center',
     flexDirection: 'row',
     backgroundColor: R.color.lightGray,
@@ -219,16 +214,16 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
 
-  images1: {
+  images: {
     gutterBottom: R.unit.scale(20),
-    width: R.unit.scale(300),
+    width: R.unit.width(1),
     height: R.unit.scale(300),
     borderRadius: R.unit.scale(10),
     justifyContent: 'center',
     Color: R.color.lightGray,
     alignSelf: 'center',
   },
-  wholeButtoncounter: {
+  wholeButtonCounter: {
     backgroundColor: R.color.white,
     flexDirection: 'row',
     borderRadius: R.unit.scale(15),
@@ -246,15 +241,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     paddingHorizontal: R.unit.scale(18),
   },
-  hearticon: { marginRight: R.unit.scale(10) },
-  deletecounter: { marginLeft: R.unit.scale(10) },
-  incrementcounter: { marginRight: R.unit.scale(10) },
-  hedertitletext: {
+  heartIcon: { marginRight: R.unit.scale(10) },
+  deleteCounter: { marginLeft: R.unit.scale(10) },
+  incrementCounter: { marginRight: R.unit.scale(10) },
+  hederTitleText: {
     flex: 1,
     justifyContent: 'center',
     flexDirection: 'row',
   },
-  imagebackground: { flex: 0.4, backgroundColor: R.color.lightGray },
+  imageBackGround: { flex: 0.4, backgroundColor: R.color.lightGray },
   buttonStyle: {
     flexDirection: 'row',
     justifyContent: 'center',

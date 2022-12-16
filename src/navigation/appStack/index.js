@@ -27,9 +27,10 @@ const AuthStack = () => {
         }}
         tabBarOptions={{
           showLabel: true,
+          keyboardHidesTabBar: true,
           activeTintColor: 'black',
           inactiveTintColor: 'gray',
-          paddingBottom: 0,
+          position: 'absolute',
 
           style: {
             backgroundColor: R.color.white,
@@ -39,6 +40,7 @@ const AuthStack = () => {
             marginRight: 10,
             marginLeft: 10,
             alignItems: 'center',
+            position: 'absolute',
             paddingBottom: 10,
             marginBottom: 15,
           },
@@ -139,7 +141,7 @@ const AuthStack = () => {
     <NavigationContainer independent={true}>
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName={'Login'}>
+        initialRouteName={'Home'}>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Home" component={MyTabs} />
         <Stack.Screen name="Detail" component={Detail} />
