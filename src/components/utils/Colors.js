@@ -36,6 +36,9 @@ const color = {
   gray6: '#d6d6d6',
   gray7: '#AAA9A6',
 
+  // Profile screen
+  blue: '#26466D',
+
   blackLightShade: '#1A1A1A',
   charcoalShade: '#2E2E2E',
   charcoalShade2: '#2c2c2c',

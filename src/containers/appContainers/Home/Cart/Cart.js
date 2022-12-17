@@ -40,7 +40,6 @@ function Cart() {
     const { id } = item;
     let result = cartList.find(item => item.id === id);
     result.count = result.count + 1;
-    console.log(result);
     setCartList([...cartList]);
   };
 
@@ -49,7 +48,6 @@ function Cart() {
       let { id } = item;
       let result = cartList.find(item => item.id === id);
       result.count = result.count - 1;
-      console.log(result);
       setCartList([...cartList]);
     }
   };
