@@ -9,14 +9,12 @@ import {
   Platform,
 } from 'react-native';
 
-import {Icon} from 'native-base';
-import {useState} from 'react';
-import {moderateScale, scale, ScaledSheet} from 'react-native-size-matters';
+import { Icon } from 'native-base';
+import { useState } from 'react';
+import { moderateScale, scale, ScaledSheet } from 'react-native-size-matters';
 import Text from './Text';
 import R from '@components/utils/R';
-import HoverText from './HoverText';
-import {EyeHideIcon} from '@components/utils/Svg';
-import navigation from '@components/navigation/navigationService';
+import { EyeHideIcon } from '@components/utils/Svg';
 
 const TextInput = props => {
   let screenWidth = Dimensions.get('window').width;
@@ -91,7 +89,7 @@ const TextInput = props => {
         },
       ]}>
       {title && (
-        <View style={{...R.styles.rowView, marginBottom: R.unit.scale(8)}}>
+        <View style={{ ...R.styles.rowView, marginBottom: R.unit.scale(8) }}>
           <View style={R.styles.twoItemsRow}>
             <Text
               variant={'body3'}
@@ -125,7 +123,7 @@ const TextInput = props => {
               </>
             )}
           </View>
-          {isRightTitle && <HoverText onPress={onPress} />}
+          {/* {isRightTitle && <HoverText onPress={onPress} />} */}
         </View>
       )}
       <View
@@ -179,7 +177,7 @@ const TextInput = props => {
 
                 Platform.OS === 'android'
                   ? styles.inputBox
-                  : [styles.inputBox, {paddingBottom: 0}],
+                  : [styles.inputBox, { paddingBottom: 0 }],
               ]}
               onChangeText={e => handleChangeText(e)}
               value={props.value}
@@ -230,7 +228,7 @@ const TextInput = props => {
               },
               Platform.OS === 'android'
                 ? styles.inputBox
-                : [styles.inputBox, {paddingBottom: 0}],
+                : [styles.inputBox, { paddingBottom: 0 }],
 
               inputHeight && {
                 height: R.unit.scale(inputHeight),

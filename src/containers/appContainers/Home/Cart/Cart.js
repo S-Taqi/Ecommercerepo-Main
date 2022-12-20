@@ -44,7 +44,7 @@ function Cart() {
   };
 
   const Delete = item => {
-    if (item.count > 1) {
+    if (item.count > 0) {
       let { id } = item;
       let result = cartList.find(item => item.id === id);
       result.count = result.count - 1;

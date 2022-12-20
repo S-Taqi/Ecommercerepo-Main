@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '@containers/authContainers/loginScreen';
+import SigninScreen from '@containers/authContainers/SignScreen/index';
 import Home from '@containers/appContainers/Home/home';
 import Detail from '@containers/appContainers/Home/Detail/Detail';
 import Notification from '@containers/appContainers/Home/Notification/Notification';
@@ -141,8 +142,9 @@ const AuthStack = () => {
     <NavigationContainer independent={true}>
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName={'Home'}>
+        initialRouteName={'Login'}>
         <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="SigninScreen" component={SigninScreen} />
         <Stack.Screen name="Home" component={MyTabs} />
         <Stack.Screen name="Detail" component={Detail} />
       </Stack.Navigator>

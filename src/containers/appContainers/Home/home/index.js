@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   FlatList,
   Image,
-  TextInput
+  TextInput,
 } from 'react-native';
 import Icon from '@components/common/Icon';
 import Text from '@components/common/Text';
@@ -17,7 +17,7 @@ function Home(props) {
   const [click, setClick] = useState(false);
   const [searchitems, setSearchitems] = useState('');
 
-  const toggleLoading = () => {
+  const OnClickSearchBar = () => {
     setClick(!click);
   };
 
@@ -248,7 +248,7 @@ function Home(props) {
               Good quality cloths,
             </Text>
           </View>
-          <TouchableOpacity onPress={toggleLoading}>
+          <TouchableOpacity onPress={OnClickSearchBar}>
             <Icon type={'Feather'} name={'search'} size={30} />
           </TouchableOpacity>
         </View>
