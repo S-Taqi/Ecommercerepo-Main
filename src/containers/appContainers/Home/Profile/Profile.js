@@ -138,6 +138,7 @@ function Profile(props) {
             <View
               style={{
                 flexDirection: 'row',
+                justifyContent: 'center',
                 alignItems: 'center',
               }}>
               <Text
@@ -147,14 +148,14 @@ function Profile(props) {
                 transform={'none'}>
                 Logout
               </Text>
-            </View>
-            <View style={{ justifyContent: 'center' }}>
-              <Icon
-                type={'AntDesign'}
-                name={'logout'}
-                size={25}
-                color={R.color.logintextcolor}
-              />
+              <View style={{ margin: 8 }}>
+                <Icon
+                  type={'AntDesign'}
+                  name={'logout'}
+                  size={25}
+                  color={R.color.logintextcolor}
+                />
+              </View>
             </View>
           </View>
         </View>

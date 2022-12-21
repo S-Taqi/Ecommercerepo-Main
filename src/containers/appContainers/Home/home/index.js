@@ -5,12 +5,12 @@ import {
   TouchableOpacity,
   FlatList,
   Image,
-  TextInput,
 } from 'react-native';
 import Icon from '@components/common/Icon';
 import Text from '@components/common/Text';
 import R from '@components/utils/R';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import TextInput from '@components/common/TextInput';
 
 function Home(props) {
   const { navigation } = props;
@@ -258,11 +258,17 @@ function Home(props) {
         {click && (
           <>
             <TextInput
-              style={styles.input}
+              placeholder={'SearchItems'}
+              gutterBottom={10}
+              gutterTop={10}
+              style={{ marginLeft: 30 }}
               onChangeText={text => setSearchitems(text)}
+              color={R.color.black}
               value={searchitems}
-              placeholder="SearchItems"
-              placeholderTextColor="gray"
+              widthiInPercent={'100%'}
+              //iconName={'Entypo'}
+              //iconType={'user'}
+              //formError={isValid}
             />
           </>
         )}

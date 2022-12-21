@@ -1,4 +1,4 @@
-import {ADD_ITEM, REMOVE_ITEM} from './ActionTypes';
+import { ADD_ITEM, REMOVE_ITEM } from './ActionTypes';
 
 export const Reducer = (state = [], action) => {
   switch (action.type) {
@@ -7,7 +7,7 @@ export const Reducer = (state = [], action) => {
       if (itemIndex >= 0) {
         state[itemIndex].count += 1;
       } else {
-        const obj = {...action.payload, count: 1};
+        const obj = { ...action.payload, count: 1 };
         return [...state, obj];
       }
 

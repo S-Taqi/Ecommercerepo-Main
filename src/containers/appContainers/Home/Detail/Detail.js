@@ -6,6 +6,13 @@ import Icon from '@components/common/Icon';
 import Text from '@components/common/Text';
 import R from '@components/utils/R';
 import Button from '@components/common/Button';
+import database from '@react-native-firebase/database';
+
+let addItem = item => {
+  database().ref('/items').push({
+    data: item,
+  });
+};
 
 function Detail(props) {
   const { data } = props.route.params;
@@ -29,8 +36,9 @@ function Detail(props) {
 
   const dispatch = useDispatch();
 
-  const addItem = () => {
+  const addItems = () => {
     dispatch(addItemsToCart(data));
+    addItem(data);
     navigation.navigate('Cart');
   };
 
@@ -66,7 +74,7 @@ function Detail(props) {
       </View>
       <View style={styles.imageBackGround}>
         <Image style={styles.images} source={uri} />
-        <View style={styles.buttonStyle}>
+        {/* <View style={styles.buttonStyle}>
           <View style={styles.wholeButtonCounter}>
             <TouchableOpacity onPress={Add} style={styles.incrementCounter}>
               <Icon type={'Entypo'} name={'plus'} size={30} color={'#E42021'} />
@@ -88,7 +96,7 @@ function Detail(props) {
               />
             </TouchableOpacity>
           </View>
-        </View>
+        </View> */}
         <View style={styles.contentBodytitle}>
           <Text
             variant={'h4'}
@@ -187,7 +195,7 @@ function Detail(props) {
           width={'90%'}
           height={50}
           onPress={() => {
-            addItem(data);
+            addItems(data);
           }}
           variant={'body2'}
           gutterBottom={10}

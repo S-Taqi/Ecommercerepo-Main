@@ -20,7 +20,7 @@ function LoginScreen(props) {
   const validEmail = new RegExp(
     '^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$',
   );
-  const validPassword = new RegExp('.{8,}');
+  const validPassword = new RegExp('.{6,}');
   const __doSignUp = () => {
     const body = {
       username,
@@ -40,13 +40,13 @@ function LoginScreen(props) {
         return;
       }
       if (!validPassword.test(body.password)) {
-        setError('Weak password, minimum 6 chars');
+        setError('Weak password, minimum 6 characters');
         setValid(false);
         return;
       }
     }
 
-    __doCreateUser(username, email, password);
+    __doCreateUser(email, password);
   };
 
   const __doCreateUser = async (email, password) => {
@@ -56,11 +56,16 @@ function LoginScreen(props) {
         password,
       );
       if (response && response.user) {
+        setLoading(true);
         Alert.alert('Success ✅', 'Signin successfully');
         navigation.navigate('Login');
+        setLoading(false);
       }
     } catch (e) {
-      console.error(e.message);
+      // Alert.alert(e.message);
+      setError(e.message);
+      setValid(false);
+      return;
     }
   };
 
@@ -99,8 +104,8 @@ function LoginScreen(props) {
           color={R.color.black}
           //value={authuser?}
           widthiInPercent={'100%'}
-          iconName={'Entypo'}
-          iconType={'user'}
+          //iconName={'Entypo'}
+          //iconType={'user'}
           formError={isValid}
         />
         <TextInput
@@ -113,8 +118,8 @@ function LoginScreen(props) {
           color={R.color.black}
           //value={authuser?}
           widthiInPercent={'100%'}
-          iconName={'Entypo'}
-          iconType={'user'}
+          //iconName={'Entypo'}
+          //iconType={'user'}
           formError={isValid}
         />
         <TextInput
@@ -125,10 +130,10 @@ function LoginScreen(props) {
           //value={authuser?}
           widthiInPercent={'100%'}
           secureTextEntry={true}
-          iconName={'Entypo'}
-          iconType={'user'}
+          //iconName={'Entypo'}
+          //iconType={'user'}
           formError={isValid}
-          showPassword={true}
+          showPassword={false}
         />
 
         {error ? (
@@ -174,7 +179,7 @@ const styles = StyleSheet.create({
   },
 
   wholecontainer: {
-    height: R.unit.height(1),
+    height: R.unit.scale(555),
     width: R.unit.width(1),
   },
   headercontent: {

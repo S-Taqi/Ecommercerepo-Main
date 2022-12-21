@@ -27,6 +27,11 @@ function Cart() {
 
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartList, setCartList] = useState([]);
+  useEffect(() => {
+    if (cartList.length == 0) {
+      setTotalPrice(0);
+    }
+  }, [cartList]);
 
   useEffect(() => {
     totallPrice();

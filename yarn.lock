@@ -2165,7 +2165,7 @@
   dependencies:
     "invariant" "^2.2.4"
 
-"@react-native-firebase/app@^16.4.6", "@react-native-firebase/app@16.4.6":
+"@react-native-firebase/app@^16.4.6", "@react-native-firebase/app@16.4.6", "@react-native-firebase/app@16.5.0":
   "integrity" "sha512-rL/vhylwzj9ziKAqEOI6G3eIGiJRcI9dcM93+gG7pEv1mNBHKmhnuq9VPS8nR01qyI/PYWoKN6XecE0w7A7n4w=="
   "resolved" "https://registry.npmjs.org/@react-native-firebase/app/-/app-16.4.6.tgz"
   "version" "16.4.6"
@@ -2181,6 +2181,11 @@
   dependencies:
     "@expo/config-plugins" "^5.0.4"
     "plist" "^3.0.5"
+
+"@react-native-firebase/database@^16.5.0":
+  "integrity" "sha512-swQeygaKqkkg5j7zkjlzX/yFEtXktBj+Bm3rPAdVEusTgSndZyK3ul8r2ReI97QCNoMZp8G2zsEhfhKYVBt1iA=="
+  "resolved" "https://registry.npmjs.org/@react-native-firebase/database/-/database-16.5.0.tgz"
+  "version" "16.5.0"
 
 "@react-native-masked-view/masked-view@^0.2.6":
   "integrity" "sha512-+1holBPDF1yi/y0uc1WB6lA5tSNHhM7PpTMapT3ypvSnKQ9+C6sy/zfjxNxRA/llBQ1Ci6f94EaK56UCKs5lTA=="
