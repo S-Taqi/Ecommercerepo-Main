@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
 import { View, SafeAreaView, StyleSheet, Alert } from 'react-native';
+import database from '@react-native-firebase/database';
 import R from '@components/utils/R';
 import Text from '@components/common/Text';
 import { ScrollView } from 'react-native-gesture-handler';
 import Button from '@components/common/Button';
 import auth from '@react-native-firebase/auth';
 import TextInput from '@components/common/TextInput';
-import Icon from '@components/common/Icon';
 
-function LoginScreen(props) {
+function SignScreen(props) {
   const { navigation } = props;
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  //const [fetching, setFetching] = useState(false);
   const [error, setError] = useState('');
   const [isValid, setValid] = useState(true);
   const validEmail = new RegExp(
     '^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$',
   );
   const validPassword = new RegExp('.{6,}');
+
   const __doSignUp = () => {
     const body = {
       username,
@@ -45,26 +45,34 @@ function LoginScreen(props) {
         return;
       }
     }
-
-    __doCreateUser(email, password);
+    _doCreateUser(email, password);
   };
 
-  const __doCreateUser = async (email, password) => {
+  const _doCreateUser = async (email, password) => {
     try {
+      setLoading(true);
       let response = await auth().createUserWithEmailAndPassword(
         email,
         password,
       );
+      console.log('DSADSASADSDA', response);
+      let loginobj = {
+        userId: response.user.uid,
+        userName: username,
+        email: email,
+        photoUrl: '',
+      };
+      console.log('loginobj', loginobj);
       if (response && response.user) {
-        setLoading(true);
+        database().ref(`/users/${response.user.uid}`).set(loginobj);
         Alert.alert('Success ✅', 'Signin successfully');
         navigation.navigate('Login');
         setLoading(false);
       }
     } catch (e) {
-      // Alert.alert(e.message);
       setError(e.message);
       setValid(false);
+      setLoading(false);
       return;
     }
   };
@@ -93,7 +101,6 @@ function LoginScreen(props) {
             To Continue
           </Text>
         </View>
-
         <TextInput
           placeholder={'username'}
           gutterBottom={10}
@@ -102,10 +109,7 @@ function LoginScreen(props) {
             setUsername(text);
           }}
           color={R.color.black}
-          //value={authuser?}
           widthiInPercent={'100%'}
-          //iconName={'Entypo'}
-          //iconType={'user'}
           formError={isValid}
         />
         <TextInput
@@ -116,10 +120,7 @@ function LoginScreen(props) {
             setEmail(text);
           }}
           color={R.color.black}
-          //value={authuser?}
           widthiInPercent={'100%'}
-          //iconName={'Entypo'}
-          //iconType={'user'}
           formError={isValid}
         />
         <TextInput
@@ -127,23 +128,17 @@ function LoginScreen(props) {
           gutterBottom={10}
           onChangeText={text => setPassword(text)}
           color={R.color.black}
-          //value={authuser?}
           widthiInPercent={'100%'}
           secureTextEntry={true}
-          //iconName={'Entypo'}
-          //iconType={'user'}
           formError={isValid}
           showPassword={false}
         />
-
         {error ? (
           <View style={{ justifyContent: 'center' }}>
-            {/* <Text style={}>{error}</Text> */}
             <Text
               variant={'body3'}
               font={'WorkSansextraBold'}
               color={R.color.logintextcolor}
-              //align={'left'}
               transform={'none'}>
               {error}
             </Text>
@@ -193,4 +188,4 @@ const styles = StyleSheet.create({
     paddingHorizontal: R.unit.scale(18),
   },
 });
-export default LoginScreen;
+export default SignScreen;

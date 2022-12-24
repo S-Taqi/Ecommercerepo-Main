@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { addItemsToCart } from '../../../../store/Action';
@@ -6,39 +6,26 @@ import Icon from '@components/common/Icon';
 import Text from '@components/common/Text';
 import R from '@components/utils/R';
 import Button from '@components/common/Button';
-import database from '@react-native-firebase/database';
-
-let addItem = item => {
-  database().ref('/items').push({
-    data: item,
-  });
-};
+//import database from '@react-native-firebase/database';
+//import { useSelector } from 'react-redux';
 
 function Detail(props) {
   const { data } = props.route.params;
   const { navigation } = props;
-  const { price, name, count, uri } = data;
-  const [counter, setCounter] = useState(count);
-  const [totalPrice, setTotalPrice] = useState(price);
-
-  const Add = () => {
-    let itemCount = counter + 1;
-    let sumPrice = itemCount * price;
-    setTotalPrice(sumPrice);
-    setCounter(counter + 1);
-  };
-
-  const Delete = () => {
-    setCounter(counter - 1);
-    let result = parseInt(data.price) * counter - data.price;
-    setTotalPrice(result);
-  };
-
+  const { price, name, uri } = data;
   const dispatch = useDispatch();
+  // const auth = useSelector(state => state.LoginReducer);
+  // console.log('nnnnnn', auth[0].userId);
+  const [totalPrice, setTotalPrice] = useState(price);
 
   const addItems = () => {
     dispatch(addItemsToCart(data));
-    addItem(data);
+    // database()
+    //   .ref(`/users/${auth[0].userId}`)
+    //   .set({
+    //     order: addItemsToCart(data),
+    //   })
+    //   .then(response => console.log('Data set.', response));
     navigation.navigate('Cart');
   };
 
@@ -74,29 +61,7 @@ function Detail(props) {
       </View>
       <View style={styles.imageBackGround}>
         <Image style={styles.images} source={uri} />
-        {/* <View style={styles.buttonStyle}>
-          <View style={styles.wholeButtonCounter}>
-            <TouchableOpacity onPress={Add} style={styles.incrementCounter}>
-              <Icon type={'Entypo'} name={'plus'} size={30} color={'#E42021'} />
-            </TouchableOpacity>
-            <Text
-              variant={'body3'}
-              gutterTop={4}
-              font={'WorkSansextraBold'}
-              color={R.color.black}
-              transform={'none'}>
-              {counter}
-            </Text>
-            <TouchableOpacity onPress={Delete} style={styles.deleteCounter}>
-              <Icon
-                type={'Entypo'}
-                name={'minus'}
-                size={30}
-                color={'#E42021'}
-              />
-            </TouchableOpacity>
-          </View>
-        </View> */}
+
         <View style={styles.contentBodytitle}>
           <Text
             variant={'h4'}

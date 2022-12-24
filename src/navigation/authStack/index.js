@@ -14,12 +14,12 @@ const AuthStack = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        screenOptions={{ headerShown: true }}
+        screenOptions={{ headerShown: false }}
         initialRouteName={'Home'}>
         <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Home" component={Home} />
+        {/* <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Detail" component={Detail} />
-        <Stack.Screen name="Notification" component={Notification} />
+        <Stack.Screen name="Notification" component={Notification} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

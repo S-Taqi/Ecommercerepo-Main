@@ -4,6 +4,7 @@ export const Reducer = (state = [], action) => {
   switch (action.type) {
     case ADD_ITEM:
       const itemIndex = state.findIndex(item => item.id === action.payload.id);
+
       if (itemIndex >= 0) {
         state[itemIndex].count += 1;
       } else {
@@ -16,6 +17,7 @@ export const Reducer = (state = [], action) => {
         return index !== action.payload;
       });
       return deleteArray;
+
     default:
       return state;
   }

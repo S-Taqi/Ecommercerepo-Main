@@ -8,25 +8,28 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { DeleteitemFromcart } from '../../../../store/Action';
-import Text from '@components/common/Text';
-import R from '@components/utils/R';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import Button from '@components/common/Button';
-import Icon from '@components/common/Icon';
 import { ScrollView } from 'react-native-gesture-handler';
 import { showNotification } from '../../../../components/common/Notification_android';
+import Icon from '@components/common/Icon';
+import Text from '@components/common/Text';
+import R from '@components/utils/R';
+import Button from '@components/common/Button';
+import database from '@react-native-firebase/database';
 
 function Cart() {
   const dispatch = useDispatch();
-
   const items = useSelector(state => state.Reducer);
   const removeitems = index => {
     dispatch(DeleteitemFromcart(index));
   };
+  const auth = useSelector(state => state.LoginReducer);
+  console.log('nnnnnn', auth);
 
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartList, setCartList] = useState([]);
+
   useEffect(() => {
     if (cartList.length == 0) {
       setTotalPrice(0);
@@ -42,10 +45,16 @@ function Cart() {
   }, [items]);
 
   const Increment = item => {
+    // const { id } = item;
+    // let result = cartList.find(item => item.id === id);
+    // result.count = result.count + 1;
+    // setCartList([...cartList]);
+    // console.log('ITEMS', item);
     const { id } = item;
-    let result = cartList.find(item => item.id === id);
+    let tempArr = JSON.parse(JSON.stringify(cartList));
+    let result = tempArr.find(item => item.id == id);
     result.count = result.count + 1;
-    setCartList([...cartList]);
+    setCartList([...tempArr]);
   };
 
   const Delete = item => {
@@ -59,14 +68,36 @@ function Cart() {
 
   const totallPrice = () => {
     let newArr = [];
+    console.log('asas', cartList);
     for (var i = 0; i < cartList.length; i++) {
-      let result = items[i].count * items[i].price;
+      let result = cartList[i].count * cartList[i].price;
       newArr.push(result);
       let subresult = newArr.reduce(
         (accumulator, currentValue) => accumulator + currentValue,
       );
       setTotalPrice(subresult);
     }
+  };
+
+  const addItems = () => {
+    //let user = {
+    //cartList,
+    // email: auth[0]?.email,
+    // name: auth[0]?.userName,
+    // photo: auth[0]?.photoUrl,
+    //};
+    console.log('items');
+    let order = {
+      //...user,
+      orders: items,
+    };
+    database()
+      .ref(`/users/${auth[0]}`)
+      .set({
+        ...order,
+      })
+      .then(response => console.log('Data set.', response));
+    showNotification('Ecommerce', 'order placed');
   };
 
   return (
@@ -222,7 +253,7 @@ function Cart() {
           size={'lg'}
           width={'90%'}
           height={50}
-          onPress={() => showNotification('Ecommerce', 'order placed')}
+          onPress={addItems}
           variant={'body2'}
           gutterBottom={10}
           gutterTop={20}

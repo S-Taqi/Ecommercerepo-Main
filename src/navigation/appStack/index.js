@@ -1,17 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginScreen from '@containers/authContainers/loginScreen';
-import SigninScreen from '@containers/authContainers/SignScreen/index';
+import { useSelector } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import LoginScreen from '@containers/authContainers/loginScreen/index';
+//import SignScreen from '@containers/authContainers/SignScreen/index';
+import SignupScreen from '@containers/authContainers/SignScreen/index';
 import Home from '@containers/appContainers/Home/home';
 import Detail from '@containers/appContainers/Home/Detail/Detail';
 import Notification from '@containers/appContainers/Home/Notification/Notification';
 import Profile from '@containers/appContainers/Home/Profile/Profile';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import R from '@components/utils/R';
 import Cart from '@containers/appContainers/Home/Cart/Cart';
-import { useSelector } from 'react-redux';
 import Icon from '@components/common/Icon';
 
 const AuthStack = () => {
@@ -144,7 +145,7 @@ const AuthStack = () => {
         screenOptions={{ headerShown: false }}
         initialRouteName={'Login'}>
         <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="SigninScreen" component={SigninScreen} />
+        <Stack.Screen name="Signup" component={SignupScreen} />
         <Stack.Screen name="Home" component={MyTabs} />
         <Stack.Screen name="Detail" component={Detail} />
       </Stack.Navigator>
