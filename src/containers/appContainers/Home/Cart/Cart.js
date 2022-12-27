@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import {
+  FlatList,
+  Image,
   SafeAreaView,
   StyleSheet,
-  Image,
-  View,
-  FlatList,
   TouchableOpacity,
+  View,
 } from 'react-native';
-import { DeleteitemFromcart } from '../../../../store/Action';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { ScrollView } from 'react-native-gesture-handler';
-import { showNotification } from '../../../../components/common/Notification_android';
+import Button from '@components/common/Button';
 import Icon from '@components/common/Icon';
 import Text from '@components/common/Text';
 import R from '@components/utils/R';
-import Button from '@components/common/Button';
 import database from '@react-native-firebase/database';
+import { ScrollView } from 'react-native-gesture-handler';
+import { useDispatch, useSelector } from 'react-redux';
+import { showNotification } from '../../../../components/common/Notification_android';
+import { DeleteitemFromcart } from '../../../../store/Action';
 
 function Cart() {
   const dispatch = useDispatch();
@@ -25,7 +24,6 @@ function Cart() {
     dispatch(DeleteitemFromcart(index));
   };
   const auth = useSelector(state => state.LoginReducer);
-  console.log('nnnnnn', auth);
 
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartList, setCartList] = useState([]);
@@ -45,11 +43,6 @@ function Cart() {
   }, [items]);
 
   const Increment = item => {
-    // const { id } = item;
-    // let result = cartList.find(item => item.id === id);
-    // result.count = result.count + 1;
-    // setCartList([...cartList]);
-    // console.log('ITEMS', item);
     const { id } = item;
     let tempArr = JSON.parse(JSON.stringify(cartList));
     let result = tempArr.find(item => item.id == id);
@@ -59,16 +52,16 @@ function Cart() {
 
   const Delete = item => {
     if (item.count > 0) {
-      let { id } = item;
-      let result = cartList.find(item => item.id === id);
+      const { id } = item;
+      let tempArr = JSON.parse(JSON.stringify(cartList));
+      let result = tempArr.find(item => item.id == id);
       result.count = result.count - 1;
-      setCartList([...cartList]);
+      setCartList([...tempArr]);
     }
   };
 
   const totallPrice = () => {
     let newArr = [];
-    console.log('asas', cartList);
     for (var i = 0; i < cartList.length; i++) {
       let result = cartList[i].count * cartList[i].price;
       newArr.push(result);
@@ -80,19 +73,16 @@ function Cart() {
   };
 
   const addItems = () => {
-    //let user = {
-    //cartList,
-    // email: auth[0]?.email,
-    // name: auth[0]?.userName,
-    // photo: auth[0]?.photoUrl,
-    //};
-    console.log('items');
+    let user = {
+      email: auth[0]?.email,
+    };
+
     let order = {
-      //...user,
-      orders: items,
+      ...user,
+      orders: cartList,
     };
     database()
-      .ref(`/users/${auth[0]}`)
+      .ref(`/users/${auth[0]?.uid}`)
       .set({
         ...order,
       })

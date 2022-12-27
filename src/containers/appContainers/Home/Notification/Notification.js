@@ -5,16 +5,13 @@ import {
   View,
   ScrollView,
 } from 'react-native';
-import React, { useState, useEffect } from 'react';
-import R from '@components/utils/R';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import R from '@components/utils/R';
 import Text from '@components/common/Text';
 
 const Notification = () => {
   const items = useSelector(state => state.Reducer);
-  const theme = useSelector(state => state.ThemeReducer);
-  console.log(items, 'aaaa');
-
   const [isActive, setIsActive] = useState(true);
 
   const handleClick = () => {

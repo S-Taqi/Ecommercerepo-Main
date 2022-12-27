@@ -18,12 +18,11 @@ function LoginScreen(props) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isValid, setValid] = useState(true);
-  // const [initializing, setInitializing] = useState(true);
-  // const [user, setUser] = useState();
 
   const validEmail = new RegExp(
     '^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$',
   );
+
   const validPassword = new RegExp('.{6,}');
   const __doLogin = () => {
     const body = {
@@ -57,8 +56,7 @@ function LoginScreen(props) {
       setLoading(true);
       let response = await auth().signInWithEmailAndPassword(email, password);
       if (response && response.user) {
-        console.log('aaas', response.user.uid);
-        dispatch(LoginReducer(response.user.uid));
+        dispatch(LoginReducer(response.user));
         database()
           .ref(`/users/${response.user.uid}`)
           .once('value')
@@ -137,9 +135,11 @@ function LoginScreen(props) {
             autoCapitalize={false}
             placeholder="Password"
             formError={isValid}
+            keyboardType={'numeric'}
             onChangeText={text => setPassword(text)}
           />
         </View>
+
         <View style={{ flexDirection: 'row' }}>
           <Text
             variant={'body3'}
@@ -163,12 +163,10 @@ function LoginScreen(props) {
         </View>
         {error ? (
           <View style={{ justifyContent: 'center' }}>
-            {/* <Text style={}>{error}</Text> */}
             <Text
               variant={'body3'}
               font={'WorkSansextraBold'}
               color={R.color.logintextcolor}
-              //align={'left'}
               transform={'none'}>
               {error}
             </Text>

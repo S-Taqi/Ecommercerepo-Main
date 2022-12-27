@@ -6,26 +6,15 @@ import Icon from '@components/common/Icon';
 import Text from '@components/common/Text';
 import R from '@components/utils/R';
 import Button from '@components/common/Button';
-//import database from '@react-native-firebase/database';
-//import { useSelector } from 'react-redux';
 
 function Detail(props) {
   const { data } = props.route.params;
   const { navigation } = props;
-  const { price, name, uri } = data;
+  const { name, uri } = data;
   const dispatch = useDispatch();
-  // const auth = useSelector(state => state.LoginReducer);
-  // console.log('nnnnnn', auth[0].userId);
-  const [totalPrice, setTotalPrice] = useState(price);
 
   const addItems = () => {
     dispatch(addItemsToCart(data));
-    // database()
-    //   .ref(`/users/${auth[0].userId}`)
-    //   .set({
-    //     order: addItemsToCart(data),
-    //   })
-    //   .then(response => console.log('Data set.', response));
     navigation.navigate('Cart');
   };
 
@@ -72,16 +61,6 @@ function Detail(props) {
             style={{ width: '100%' }}
             transform={'none'}>
             Furious {name}
-          </Text>
-          <Text
-            variant={'body1'}
-            font={'WorkSansextraBold'}
-            gutterTop={14}
-            color={R.color.black}
-            align={'center'}
-            style={{ width: '100%' }}
-            transform={'none'}>
-            {totalPrice} Rs
           </Text>
         </View>
         <Text

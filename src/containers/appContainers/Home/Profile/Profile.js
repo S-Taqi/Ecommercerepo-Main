@@ -1,19 +1,10 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Image,
-  TouchableOpacity,
-  SafeAreaView,
-  FlatList,
-} from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 import R from '@components/utils/R';
 import Text from '@components/common/Text';
 import Icon from '@components/common/Icon';
-import color from '@components/utils/Colors';
-import Button from '@components/common/Button';
-function Profile(props) {
-  const { navigation } = props;
+
+function Profile() {
   const data = [
     {
       id: '1',
@@ -77,24 +68,13 @@ function Profile(props) {
           Settings
         </Text>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            paddingHorizontal: 10,
-            marginBottom: 12,
-          }}>
-          <View style={{ flexDirection: 'row' }}>
+        <View style={styles.headerContents}>
+          <View style={styles.ImageView}>
             <Image
               style={styles.images1}
               source={require('@assets/Images/imu.png')}
             />
-            <View
-              style={{
-                flexDirection: 'column',
-                marginLeft: 20,
-              }}>
+            <View style={styles.headerContentsText}>
               <Text
                 variant={'body3'}
                 font={'WorkSansextraRegular'}
@@ -118,29 +98,10 @@ function Profile(props) {
           </View>
         </View>
 
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: R.color.gray2,
-            borderTopRightRadius: 20,
-            borderTopLeftRadius: 20,
-            marginTop: 20,
-          }}>
-          <View style={{ marginTop: 100 }}>{list()}</View>
-          <View
-            style={{
-              marginTop: 17,
-              height: 50,
-              backgroundColor: R.color.white,
-              justifyContent: 'space-evenly',
-              flexDirection: 'row',
-            }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
+        <View style={styles.SettingBodyContainer}>
+          <View style={styles.SettingBodyContainerTitles}>{list()}</View>
+          <View style={styles.logoutButton}>
+            <View style={styles.logoutButtonContent}>
               <Text
                 variant={'body2'}
                 font={'WorkSansBlackitalic'}
@@ -148,7 +109,7 @@ function Profile(props) {
                 transform={'none'}>
                 Logout
               </Text>
-              <View style={{ margin: 8 }}>
+              <View style={styles.logoutIconSpacing}>
                 <Icon
                   type={'AntDesign'}
                   name={'logout'}
@@ -176,8 +137,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     backgroundColor: R.color.white,
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
+    borderTopRightRadius: R.unit.scale(20),
+    borderTopLeftRadius: R.unit.scale(20),
   },
 
   images1: {
@@ -185,8 +146,6 @@ const styles = StyleSheet.create({
     width: R.unit.scale(60),
     height: R.unit.scale(60),
     borderRadius: R.unit.scale(30),
-    //justifyContent: 'center',
-    //alignSelf: 'center',
   },
   buttons: {
     flexDirection: 'row',
@@ -215,5 +174,38 @@ const styles = StyleSheet.create({
   },
   cartmargin: {
     marginLeft: R.unit.scale(110),
+  },
+  SettingBodyContainer: {
+    flex: 1,
+    backgroundColor: R.color.gray2,
+    borderTopRightRadius: R.unit.scale(20),
+    borderTopLeftRadius: R.unit.scale(20),
+    marginTop: R.unit.scale(20),
+  },
+  SettingBodyContainerTitles: { marginTop: R.unit.scale(100) },
+  logoutButton: {
+    marginTop: R.unit.scale(17),
+    height: R.unit.scale(50),
+    backgroundColor: R.color.white,
+    justifyContent: 'space-evenly',
+    flexDirection: 'row',
+  },
+  logoutButtonContent: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logoutIconSpacing: { margin: R.unit.scale(8) },
+  headerContents: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: R.unit.scale(10),
+    marginBottom: R.unit.scale(12),
+  },
+  ImageView: { flexDirection: 'row' },
+  headerContentsText: {
+    flexDirection: 'column',
+    marginLeft: R.unit.scale(20),
   },
 });

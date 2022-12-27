@@ -55,14 +55,13 @@ function SignScreen(props) {
         email,
         password,
       );
-      console.log('DSADSASADSDA', response);
+
       let loginobj = {
         userId: response.user.uid,
         userName: username,
         email: email,
         photoUrl: '',
       };
-      console.log('loginobj', loginobj);
       if (response && response.user) {
         database().ref(`/users/${response.user.uid}`).set(loginobj);
         Alert.alert('Success ✅', 'Signin successfully');

@@ -7,6 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LoginScreen from '@containers/authContainers/loginScreen/index';
 //import SignScreen from '@containers/authContainers/SignScreen/index';
 import SignupScreen from '@containers/authContainers/SignScreen/index';
+import Order from '@containers/appContainers/Home/Order/Order';
 import Home from '@containers/appContainers/Home/home';
 import Detail from '@containers/appContainers/Home/Detail/Detail';
 import Notification from '@containers/appContainers/Home/Notification/Notification';
@@ -47,20 +48,6 @@ const AuthStack = () => {
             marginBottom: 15,
           },
         }}>
-        <Tab.Screen
-          name="Home"
-          component={Home}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <Icon
-                type={'FontAwesome'}
-                name={'home'}
-                size={25}
-                color={focused ? '#E42021' : 'black'}
-              />
-            ),
-          }}
-        />
         <Tab.Screen
           name="Cart"
           component={Cart}
@@ -108,6 +95,34 @@ const AuthStack = () => {
           }}
         />
         <Tab.Screen
+          name="Orders"
+          component={Order}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <Icon
+                type={'FontAwesome'}
+                name={'cart-arrow-down'}
+                size={23}
+                color={focused ? '#E42021' : 'black'}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Home"
+          component={Home}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <Icon
+                type={'FontAwesome'}
+                name={'home'}
+                size={25}
+                color={focused ? '#E42021' : 'black'}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
           name="Notification"
           component={Notification}
           options={{
@@ -121,6 +136,7 @@ const AuthStack = () => {
             ),
           }}
         />
+
         <Tab.Screen
           name="Profile"
           component={Profile}
