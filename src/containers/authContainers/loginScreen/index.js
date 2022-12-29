@@ -56,12 +56,12 @@ function LoginScreen(props) {
       setLoading(true);
       let response = await auth().signInWithEmailAndPassword(email, password);
       if (response && response.user) {
-        dispatch(LoginReducer(response.user));
         database()
           .ref(`/users/${response.user.uid}`)
           .once('value')
           .then(snapshot => {
             console.log('User data: ', snapshot.val());
+            dispatch(LoginReducer(snapshot.val()));
           });
 
         Alert.alert('Success ✅', 'Login Successfully');
@@ -118,10 +118,10 @@ function LoginScreen(props) {
             placeholder={'username'}
             gutterBottom={10}
             onChangeText={text => {
-              setError;
               setEmail(text);
             }}
             color={R.color.black}
+            //secureTextEntry={}
             //value={authuser?}
             widthiInPercent={'100%'}
             //iconName={'Entypo'}

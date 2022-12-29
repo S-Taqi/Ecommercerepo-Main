@@ -49,6 +49,20 @@ const AuthStack = () => {
           },
         }}>
         <Tab.Screen
+          name="Home"
+          component={Home}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <Icon
+                type={'FontAwesome'}
+                name={'home'}
+                size={25}
+                color={focused ? '#E42021' : 'black'}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
           name="Cart"
           component={Cart}
           options={{
@@ -108,20 +122,7 @@ const AuthStack = () => {
             ),
           }}
         />
-        <Tab.Screen
-          name="Home"
-          component={Home}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <Icon
-                type={'FontAwesome'}
-                name={'home'}
-                size={25}
-                color={focused ? '#E42021' : 'black'}
-              />
-            ),
-          }}
-        />
+
         <Tab.Screen
           name="Notification"
           component={Notification}

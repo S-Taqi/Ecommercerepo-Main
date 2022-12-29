@@ -1,10 +1,12 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import R from '@components/utils/R';
 import Text from '@components/common/Text';
 import Icon from '@components/common/Icon';
 
 function Profile() {
+  const auth = useSelector(state => state.LoginReducer);
   const data = [
     {
       id: '1',
@@ -22,14 +24,7 @@ function Profile() {
   const list = () => {
     return data.map(element => {
       return (
-        <View
-          style={{
-            marginTop: 3,
-            height: 50,
-            backgroundColor: R.color.white,
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-          }}>
+        <View style={styles.headerConatainer}>
           <Text
             variant={'body2'}
             gutterTop={13}
@@ -40,7 +35,7 @@ function Profile() {
             transform={'none'}>
             {element.title}
           </Text>
-          <View style={{ marginTop: 13, marginRight: 10 }}>
+          <View style={styles.headerIcon}>
             <Icon
               type={'Entypo'}
               name={'chevron-right'}
@@ -80,7 +75,7 @@ function Profile() {
                 font={'WorkSansextraRegular'}
                 color={R.color.white}
                 transform={'none'}>
-                HELLO
+                {auth[0]?.userName}
               </Text>
 
               <Text
@@ -89,7 +84,7 @@ function Profile() {
                 gutterTop={6}
                 color={R.color.white}
                 transform={'none'}>
-                HELLO USER
+                {auth[0]?.email}
               </Text>
             </View>
           </View>
@@ -140,7 +135,14 @@ const styles = StyleSheet.create({
     borderTopRightRadius: R.unit.scale(20),
     borderTopLeftRadius: R.unit.scale(20),
   },
-
+  headerConatainer: {
+    marginTop: R.unit.scale(3),
+    height: R.unit.scale(55),
+    backgroundColor: R.color.white,
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+  },
+  headerIcon: { marginTop: R.unit.scale(13), marginRight: R.unit.scale(10) },
   images1: {
     backgroundColor: 'red',
     width: R.unit.scale(60),

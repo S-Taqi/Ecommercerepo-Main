@@ -3,6 +3,7 @@ import {
   REMOVE_ITEM,
   CHANG_AUTH,
   SAVE_USER_DATA,
+  Previousorder,
 } from './ActionTypes';
 
 export const addItemsToCart = data => ({
@@ -19,5 +20,9 @@ export const changeAuth = data => ({
 });
 export const LoginReducer = data => ({
   type: SAVE_USER_DATA,
+  payload: data,
+});
+export const PreviousData = data => ({
+  type: Previousorder,
   payload: data,
 });

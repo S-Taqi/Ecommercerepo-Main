@@ -45,15 +45,16 @@ function SignScreen(props) {
         return;
       }
     }
-    _doCreateUser(email, password);
+    _doCreateUser(email, password, username);
   };
 
-  const _doCreateUser = async (email, password) => {
+  const _doCreateUser = async (email, password, username) => {
     try {
       setLoading(true);
       let response = await auth().createUserWithEmailAndPassword(
         email,
         password,
+        username,
       );
 
       let loginobj = {
@@ -62,6 +63,7 @@ function SignScreen(props) {
         email: email,
         photoUrl: '',
       };
+
       if (response && response.user) {
         database().ref(`/users/${response.user.uid}`).set(loginobj);
         Alert.alert('Success ✅', 'Signin successfully');
@@ -104,7 +106,6 @@ function SignScreen(props) {
           placeholder={'username'}
           gutterBottom={10}
           onChangeText={text => {
-            setError;
             setUsername(text);
           }}
           color={R.color.black}
@@ -115,7 +116,6 @@ function SignScreen(props) {
           placeholder={'Email'}
           gutterBottom={10}
           onChangeText={text => {
-            setError;
             setEmail(text);
           }}
           color={R.color.black}

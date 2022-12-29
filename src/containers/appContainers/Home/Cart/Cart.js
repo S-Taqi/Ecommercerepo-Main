@@ -24,7 +24,6 @@ function Cart() {
     dispatch(DeleteitemFromcart(index));
   };
   const auth = useSelector(state => state.LoginReducer);
-
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartList, setCartList] = useState([]);
 
@@ -75,6 +74,8 @@ function Cart() {
   const addItems = () => {
     let user = {
       email: auth[0]?.email,
+      userName: auth[0]?.userName,
+      userId: auth[0]?.userId,
     };
 
     let order = {
@@ -82,7 +83,7 @@ function Cart() {
       orders: cartList,
     };
     database()
-      .ref(`/users/${auth[0]?.uid}`)
+      .ref(`/users/${auth[0]?.userId}`)
       .set({
         ...order,
       })
@@ -194,7 +195,8 @@ function Cart() {
                 </View>
               </View>
             );
-          }}></FlatList>
+          }}
+        />
         <View style={styles.contentTitle}>
           <View>
             <Text
