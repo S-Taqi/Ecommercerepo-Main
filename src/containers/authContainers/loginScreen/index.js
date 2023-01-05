@@ -115,7 +115,7 @@ function LoginScreen(props) {
         </View>
         <View>
           <TextInput
-            placeholder={'username'}
+            placeholder={'E-mail'}
             gutterBottom={10}
             onChangeText={text => {
               setEmail(text);
@@ -135,7 +135,7 @@ function LoginScreen(props) {
             autoCapitalize={false}
             placeholder="Password"
             formError={isValid}
-            keyboardType={'numeric'}
+            secureText={true}
             onChangeText={text => setPassword(text)}
           />
         </View>

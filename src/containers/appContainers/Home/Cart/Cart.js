@@ -24,6 +24,7 @@ function Cart() {
     dispatch(DeleteitemFromcart(index));
   };
   const auth = useSelector(state => state.LoginReducer);
+  console.log(auth, 'jjjjjjjjjjjj');
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartList, setCartList] = useState([]);
 

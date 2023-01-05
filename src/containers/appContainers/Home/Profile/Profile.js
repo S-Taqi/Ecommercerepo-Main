@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import R from '@components/utils/R';
 import Text from '@components/common/Text';
 import Icon from '@components/common/Icon';
 
-function Profile() {
+function Profile(props) {
+  const { navigation } = props;
   const auth = useSelector(state => state.LoginReducer);
   const data = [
     {
@@ -95,25 +96,30 @@ function Profile() {
 
         <View style={styles.SettingBodyContainer}>
           <View style={styles.SettingBodyContainerTitles}>{list()}</View>
-          <View style={styles.logoutButton}>
-            <View style={styles.logoutButtonContent}>
-              <Text
-                variant={'body2'}
-                font={'WorkSansBlackitalic'}
-                color={R.color.logintextcolor}
-                transform={'none'}>
-                Logout
-              </Text>
-              <View style={styles.logoutIconSpacing}>
-                <Icon
-                  type={'AntDesign'}
-                  name={'logout'}
-                  size={25}
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Login');
+            }}>
+            <View style={styles.logoutButton}>
+              <View style={styles.logoutButtonContent}>
+                <Text
+                  variant={'body2'}
+                  font={'WorkSansBlackitalic'}
                   color={R.color.logintextcolor}
-                />
+                  transform={'none'}>
+                  Logout
+                </Text>
+                <View style={styles.logoutIconSpacing}>
+                  <Icon
+                    type={'AntDesign'}
+                    name={'logout'}
+                    size={25}
+                    color={R.color.logintextcolor}
+                  />
+                </View>
               </View>
             </View>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     </>

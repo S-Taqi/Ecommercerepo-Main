@@ -18,7 +18,7 @@ import { EyeHideIcon } from '@components/utils/Svg';
 
 const TextInput = props => {
   let screenWidth = Dimensions.get('window').width;
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(true);
   const [value, setValue] = useState('');
 
   const handleChangeText = text => {
@@ -181,7 +181,7 @@ const TextInput = props => {
               ]}
               onChangeText={e => handleChangeText(e)}
               value={props.value}
-              secureTextEntry={!showPassword}
+              secureTextEntry={showPassword}
               placeholder={placeholder}
               placeholderTextColor={placeholdercolor}
               keyboardType={props.keyboardType}

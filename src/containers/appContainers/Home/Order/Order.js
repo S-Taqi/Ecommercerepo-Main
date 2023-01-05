@@ -1,26 +1,17 @@
-import {
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  ScrollView,
-} from 'react-native';
 import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import R from '@components/utils/R';
 import { useSelector } from 'react-redux';
 import Text from '@components/common/Text';
 import database from '@react-native-firebase/database';
 
 const Order = () => {
+  const auth = useSelector(state => state.LoginReducer);
+  console.log(auth, 'jjjjjjj');
   const [orderlist, setOrderList] = useState([]);
   const [price, setPrice] = useState();
   const [count, setCount] = useState();
   const [totalitems, setTotalitems] = useState();
-
-  //console.log(orderlist, 'asasff');
-
-  const auth = useSelector(state => state.LoginReducer);
-  console.log('ssss', auth);
 
   useEffect(() => {
     database()
@@ -29,21 +20,26 @@ const Order = () => {
         console.log('User data: ', snapshot.val());
         setOrderList(snapshot.val());
       });
-
-    orderData();
-    ItemsCount();
-    Totalorder();
   }, []);
+  useEffect(() => {
+    orderData();
+  }, [orderlist]);
+  useEffect(() => {
+    ItemsCount();
+  }, [orderlist]);
+  useEffect(() => {
+    Totalorder();
+  }, [orderlist]);
+
   //showing price
   const orderData = () => {
     let newArr = [];
     for (var i = 0; i < orderlist.orders?.length; i++) {
-      let result = orderlist.orders[i].count * orderlist.orders[i].price;
+      let result = orderlist.orders[i]?.count * orderlist.orders[i]?.price;
       newArr.push(result);
       let subresult = newArr.reduce(
         (accumulator, currentValue) => accumulator + currentValue,
       );
-      console.log(subresult, 'ssssss');
       setPrice(subresult);
     }
   };
@@ -51,12 +47,11 @@ const Order = () => {
   const ItemsCount = () => {
     let newArr = [];
     for (var i = 0; i < orderlist.orders?.length; i++) {
-      let result = orderlist.orders[i].count;
+      let result = orderlist.orders[i]?.count;
       newArr.push(result);
       let subresult = newArr.reduce(
         (accumulator, currentValue) => accumulator + currentValue,
       );
-      console.log(subresult, 'kkkkkk');
       setCount(subresult);
     }
   };
@@ -64,8 +59,8 @@ const Order = () => {
   const Totalorder = () => {
     let newArr = [];
     for (var i = 0; i < orderlist.orders?.length; i++) {
-      let result = orderlist.orders[i].name;
-      newArr.push(result);
+      let result = orderlist.orders[i]?.name;
+      newArr.push(result + ' ' + ',' + ' ');
       let subresult = newArr;
       setTotalitems(subresult);
     }
@@ -83,7 +78,7 @@ const Order = () => {
             align={'center'}
             style={{ width: '100%' }}
             transform={'none'}>
-            Your Orders
+            Your Order
           </Text>
         </View>
       </View>
@@ -130,35 +125,24 @@ const Order = () => {
               transform={'none'}>
               Rs: {price}
             </Text>
-            <Text
-              variant={'body2'}
-              font={'PoppinsMediumItalic'}
-              //gutterBottom={R.unit.scale(16)}
-              //gutterTop={6}
-              color={R.color.black}
-              align={'left'}
-              style={{
-                width: '100%',
-              }}
-              transform={'none'}>
-              Your Items Details:
-              {totalitems}
-            </Text>
+            <View>
+              <Text
+                variant={'body2'}
+                font={'PoppinsMediumItalic'}
+                gutterBottom={R.unit.scale(16)}
+                //gutterTop={6}
+                color={R.color.black}
+                align={'left'}
+                style={{
+                  width: '80%',
+                }}
+                transform={'none'}>
+                Your Items Details: {totalitems}
+              </Text>
+            </View>
           </View>
         </View>
       </View>
-      {/* <Button
-        size={'lg'}
-        width={'90%'}
-        height={50}
-        onPress={orderData}
-        variant={'body2'}
-        gutterBottom={10}
-        gutterTop={20}
-        bgColor={R.color.logintextcolor}
-        font={'PoppinsExtraBold'}
-        value={'Place Order'}
-      /> */}
     </ScrollView>
   );
 };

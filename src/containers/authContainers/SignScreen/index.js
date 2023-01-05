@@ -128,9 +128,10 @@ function SignScreen(props) {
           onChangeText={text => setPassword(text)}
           color={R.color.black}
           widthiInPercent={'100%'}
-          secureTextEntry={true}
+          secureText={true}
           formError={isValid}
-          showPassword={false}
+          //isSecure={true}
+          //kkkksetPassword={true}
         />
         {error ? (
           <View style={{ justifyContent: 'center' }}>
