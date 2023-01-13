@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { addItemsToCart } from '../../../../store/Action';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCartItem } from '../../../../store/ReduxToolkit/reducerSlice2';
 import Icon from '@components/common/Icon';
 import Text from '@components/common/Text';
 import R from '@components/utils/R';
@@ -12,9 +12,10 @@ function Detail(props) {
   const { navigation } = props;
   const { name, uri } = data;
   const dispatch = useDispatch();
-
-  const addItems = () => {
-    dispatch(addItemsToCart(data));
+  const items = useSelector(state => state);
+  console.log(items, 'AAAAAAAAAAAAAAAAAAAAAAAAA');
+  const addItems = data => {
+    dispatch(addCartItem(data));
     navigation.navigate('Cart');
   };
 

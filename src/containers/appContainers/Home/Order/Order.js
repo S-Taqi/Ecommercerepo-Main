@@ -6,7 +6,7 @@ import Text from '@components/common/Text';
 import database from '@react-native-firebase/database';
 
 const Order = () => {
-  const auth = useSelector(state => state.LoginReducer);
+  const auth = useSelector(state => state.userid);
   console.log(auth, 'jjjjjjj');
   const [orderlist, setOrderList] = useState([]);
   const [price, setPrice] = useState();

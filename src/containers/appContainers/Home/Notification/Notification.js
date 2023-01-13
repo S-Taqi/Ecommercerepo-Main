@@ -11,7 +11,7 @@ import R from '@components/utils/R';
 import Text from '@components/common/Text';
 
 const Notification = () => {
-  const items = useSelector(state => state.Reducer);
+  const items = useSelector(state => state.cart2);
   const [isActive, setIsActive] = useState(true);
 
   const handleClick = () => {

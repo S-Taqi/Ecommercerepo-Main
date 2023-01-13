@@ -4,8 +4,10 @@ import 'react-native-gesture-handler';
 import { LogBox } from 'react-native';
 import { Provider } from 'react-redux';
 //import {mystore} from './src/store/store';
-import { mystore } from '././src/store/store';
+//import { mystore } from '././src/store/store';
+
 import SplashScreen from 'react-native-splash-screen';
+import store2 from './src/store/ReduxToolkit/store2';
 
 const App = () => {
   useEffect(() => {
@@ -16,7 +18,7 @@ const App = () => {
   LogBox.ignoreAllLogs(); //Ignore all log notifications
   return (
     <>
-      <Provider store={mystore}>
+      <Provider store={store2}>
         <AppNavigator />
       </Provider>
     </>

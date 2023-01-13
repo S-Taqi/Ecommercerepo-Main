@@ -15,15 +15,15 @@ import database from '@react-native-firebase/database';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import { showNotification } from '../../../../components/common/Notification_android';
-import { DeleteitemFromcart } from '../../../../store/Action';
+import { removeCartItem } from '../../../../store/ReduxToolkit/reducerSlice2';
 
 function Cart() {
   const dispatch = useDispatch();
-  const items = useSelector(state => state.Reducer);
+  const items = useSelector(state => state.cart2);
   const removeitems = index => {
-    dispatch(DeleteitemFromcart(index));
+    dispatch(removeCartItem(index));
   };
-  const auth = useSelector(state => state.LoginReducer);
+  const auth = useSelector(state => state.userid);
   console.log(auth, 'jjjjjjjjjjjj');
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartList, setCartList] = useState([]);

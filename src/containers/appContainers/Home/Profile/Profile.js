@@ -7,7 +7,7 @@ import Icon from '@components/common/Icon';
 
 function Profile(props) {
   const { navigation } = props;
-  const auth = useSelector(state => state.LoginReducer);
+  const auth = useSelector(state => state.userid);
   const data = [
     {
       id: '1',

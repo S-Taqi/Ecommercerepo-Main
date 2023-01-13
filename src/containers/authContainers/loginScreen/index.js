@@ -7,8 +7,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Button from '@components/common/Button';
 import auth from '@react-native-firebase/auth';
 import TextInput from '@components/common/TextInput';
-import { useDispatch } from 'react-redux';
-import { LoginReducer } from '../../../store/Action';
+import { useDispatch, useSelector } from 'react-redux';
+import { addUserId } from '../../../store/ReduxToolkit/authSlice2';
 
 function LoginScreen(props) {
   const { navigation } = props;
@@ -18,6 +18,8 @@ function LoginScreen(props) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isValid, setValid] = useState(true);
+  const item = useSelector(state => state.userid);
+  console.log(item, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaa');
 
   const validEmail = new RegExp(
     '^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$',
@@ -61,7 +63,7 @@ function LoginScreen(props) {
           .once('value')
           .then(snapshot => {
             console.log('User data: ', snapshot.val());
-            dispatch(LoginReducer(snapshot.val()));
+            dispatch(addUserId(snapshot.val()));
           });
 
         Alert.alert('Success ✅', 'Login Successfully');

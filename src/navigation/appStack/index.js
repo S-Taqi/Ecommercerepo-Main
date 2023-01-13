@@ -21,7 +21,8 @@ const AuthStack = () => {
   const Tab = createBottomTabNavigator();
 
   function MyTabs() {
-    const items = useSelector(state => state.Reducer);
+    const items = useSelector(state => state.cart2);
+
     return (
       <Tab.Navigator
         screenOptions={{
