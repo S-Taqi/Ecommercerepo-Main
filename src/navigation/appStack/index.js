@@ -161,7 +161,7 @@ const AuthStack = () => {
     <NavigationContainer independent={true}>
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName={'Login'}>
+        initialRouteName={'Home'}>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
         <Stack.Screen name="Home" component={MyTabs} />
