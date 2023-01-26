@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import AppNavigator from './src/navigation/index';
-import 'react-native-gesture-handler';
+//import 'react-native-gesture-handler';
 import { LogBox } from 'react-native';
 import { Provider } from 'react-redux';
 //import {mystore} from './src/store/store';
