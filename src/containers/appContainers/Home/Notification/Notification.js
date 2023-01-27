@@ -18,7 +18,8 @@ import {
 } from '../../../../store/ReduxToolkit/jokesApi';
 import Loader from '@components/common/Loader';
 
-const Notification = () => {
+const Notification = (props) => {
+  const {navigation}=props;
   const [isActive, setIsActive] = useState(true);
   const handleClick = () => {
     setIsActive(current => !current);
@@ -166,6 +167,20 @@ const Notification = () => {
             />
           </View>
         </TouchableOpacity>
+        <Button
+              size={'lg'}
+              width={'100%'}
+              height={50}
+              onPress={() => navigation.navigate('MessagePractice')}
+              variant={'body2'}
+              gutterBottom={10}
+              gutterTop={10}
+              bgColor={R.color.black}
+              font={'PoppinsExtraBold'}
+              value={'MESSAGE===>'}
+              disabled={isLoading}
+              loader={isLoading}
+            />
       </View>
     </ScrollView>
   );

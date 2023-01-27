@@ -12,6 +12,7 @@ import Home from '@containers/appContainers/Home/home';
 import Detail from '@containers/appContainers/Home/Detail/Detail';
 import Notification from '@containers/appContainers/Home/Notification/Notification';
 import Profile from '@containers/appContainers/Home/Profile/Profile';
+import MessagePractice from '@containers/appContainers/Home/Practice/MessagePractice';
 import R from '@components/utils/R';
 import Cart from '@containers/appContainers/Home/Cart/Cart';
 import Icon from '@components/common/Icon';
@@ -161,11 +162,12 @@ const AuthStack = () => {
     <NavigationContainer independent={true}>
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName={'Login'}>
+        initialRouteName={'Home'}>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
         <Stack.Screen name="Home" component={MyTabs} />
         <Stack.Screen name="Detail" component={Detail} />
+        <Stack.Screen name="MessagePractice" component={MessagePractice} />
       </Stack.Navigator>
     </NavigationContainer>
   );
